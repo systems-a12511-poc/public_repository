@@ -1,3 +1,8 @@
 {
-    "dotnet.unitTests.runSettingsPath": "test/backend.Tests/test.runsettings"
+    "dotnet.unitTests.runSettingsPath": "test/backend.Tests/test.runsettings",
+    "yaml.customTags": [
+        "!Ref",
+        "!Sub",
+        "!GetAtt",
+    ],
 }
