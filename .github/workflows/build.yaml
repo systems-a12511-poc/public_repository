@@ -26,7 +26,7 @@ jobs:
         run: dotnet restore
 
       - name: Run tests
-        run: dotnet test test/backend.Tests/ --no-build --verbosity normal --settings test/backend.Tests/test.runsettings
+        run: dotnet test test/backend.Tests/ --verbosity normal --settings test/backend.Tests/test.runsettings
 
       - name: Setup AWS SAM CLI
         uses: aws-actions/setup-sam@v2
