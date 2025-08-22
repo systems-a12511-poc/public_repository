@@ -12,7 +12,7 @@ Globals:
   Api:
     TracingEnabled: true
 Resources:
-  a12511-poc-lambda-role:
+  A12511PocLambdaRole:
     Type: AWS::IAM::Role
     Properties:
       RoleName: a12511-poc-lambda-role
@@ -33,7 +33,7 @@ Resources:
       Runtime: dotnet8
       MemorySize: 256
       Timeout: 30
-      Role: !GetAtt a12511-poc-lambda-role.Arn
+      Role: !GetAtt A12511PocLambdaRole.Arn
       Events:
         ProxyResource:
           Type: Api
