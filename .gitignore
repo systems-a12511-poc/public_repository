@@ -1,0 +1,6 @@
+.aws-sam
+.vs
+src/backend/bin
+src/backend/obj
+test/backend.tests/bin
+test/backend.tests/obj
