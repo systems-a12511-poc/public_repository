@@ -1,0 +1,5 @@
+{
+  "WebAPI": {
+    "connectionstring":"Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres;Search Path=public;Client Encoding=UTF8;"
+  }
+}

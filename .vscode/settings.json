@@ -1,0 +1,3 @@
+{
+    "dotnet.unitTests.runSettingsPath": "test/backend.Tests/test.runsettings"
+}

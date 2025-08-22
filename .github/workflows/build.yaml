@@ -1,0 +1,44 @@
+name: Build & Test Lambda
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Start PostgreSQL with Docker Compose
+        run: docker-compose -f docker/docker-compose.yml up -d
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test test/backend.Tests/ --no-build --verbosity normal --settings test/backend.Tests/test.runsettings
+
+      - name: Setup AWS SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      - name: Build Lambda with SAM
+        run: sam build
+
+      - name: Configure AWS credentials from IAM Role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy Lambda with SAM
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name a12511-poc-stack --capabilities CAPABILITY_IAM
