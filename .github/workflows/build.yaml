@@ -10,10 +10,6 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -41,8 +37,8 @@ jobs:
       - name: Configure AWS credentials from IAM Role
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ env.AWS_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy Lambda with SAM
         run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name a12511-poc-stack --capabilities CAPABILITY_IAM
